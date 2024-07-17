@@ -10,7 +10,8 @@
     "gitpushnode": "node ./_shells/gitpush.js",
     "minifyhtml": "./_shells/minifyhtml.sh",
     "serve": "webpack serve --progress",
-    "test": "jest"
+    "test": "jest",
+    "watchjest": "jest --watch"
   },
   "keywords": [],
   "author": "cycl0n3 <johncloud@cyclonestud.io>",
