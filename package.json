@@ -3,18 +3,27 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "build": "webpack --progress  --mode=production",
-    "dev": "webpack --progress --mode=development",
+    "build": "webpack --progress  --mode=production --config config/webpack.config.js",
+    "dev": "webpack --progress --mode=development --config config/webpack.config.js",
     "gitpush": "./_shells/gitpush.sh",
     "gitpushnode": "node ./_shells/gitpush.js",
     "minifyhtml": "./_shells/minifyhtml.sh",
-    "serve": "webpack serve --progress",
-    "test": "jest",
-    "watchjest": "jest --watch"
+    "serve": "webpack serve --progress --config config/webpack.config.js",
+    "test": "jest --config=config/jest.config.js",
+    "watchjest": "jest --watch --config=config/jest.config.js"
   },
   "keywords": [],
   "author": "cycl0n3 <johncloud@cyclonestud.io>",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-import-attributes"
+    ]
+  },
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.24.9",
