@@ -10,6 +10,8 @@ export default {
 
     return first.toUpperCase() + rest.join('');
   },
+  reverseString: (string) => {
+  },
 
 }
 
