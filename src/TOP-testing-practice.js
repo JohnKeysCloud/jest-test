@@ -11,6 +11,17 @@ export default {
     return first.toUpperCase() + rest.join('');
   },
   reverseString: (string) => {
+    if (!typeof string) {
+      throw new TypeError('Argument must be a string');
+    }
+
+    if (string === '') return '';
+
+    return [...string].reverse().join('');
+
+    // * Alternatively, you could use `string.split('')`:
+    // * return string.split('').reverse().join('');
+    // * or a for loop to build the string (which saves space because array creation in such a method isn't necessary)
   },
 
 }
