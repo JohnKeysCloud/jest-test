@@ -46,7 +46,7 @@ describe('capitalizeFirstLetter()', () => {
 
   describe('edge cases', () => {
     test.each(edgeCaseTests)(
-      'handles edge cases for %p',
+      'handles edge cases for "%p"',
       ({ input, expectedError, expected }) => {
         if (expectedError) {
           expect(() => capitalizeFirstLetter(input)).toThrow(expectedError);
