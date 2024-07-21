@@ -27,12 +27,12 @@ export default {
     // 💭 --------------------------------------------------------------
     // 💭 Private
     
-    const isNumber = (number) => typeof number === 'number';
+    const _isNumber = (number) => typeof number === 'number';
 
-    const isSingleNumber = (numbers) => {
+    const _isSingleNumber = (numbers) => {
       if (!numbers.length) return 0;
       if (numbers.length === 1) {
-        if (isNumber(numbers[0])) return numbers[0]; // Return the single number if it is a valid number
+        if (_isNumber(numbers[0])) return numbers[0]; // Return the single number if it is a valid number
         throw new TypeError(typeErrorMessage); // Handle invalid single value
       }
       return false;
@@ -44,13 +44,13 @@ export default {
     // 💭 Public
 
     const add = (...numbers) => {
-      const singleNumber = isSingleNumber(numbers);
+      const singleNumber = _isSingleNumber(numbers);
       if (singleNumber !== false) return singleNumber;
       
-      if (!isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
+      if (!_isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
 
       return numbers.reduce((acc, curr) => {
-        if (isNumber(curr)) {
+        if (_isNumber(curr)) {
           return acc + curr;
         } else {
           throw new TypeError(typeErrorMessage);
@@ -59,13 +59,13 @@ export default {
     };
 
     const subtract = (...numbers) => {
-      const singleNumber = isSingleNumber(numbers);
+      const singleNumber = _isSingleNumber(numbers);
       if (singleNumber !== false) return singleNumber;
 
-      if (!isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
+      if (!_isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
 
       return numbers.reduce((acc, curr) => {
-        if (isNumber(curr)) {
+        if (_isNumber(curr)) {
           return acc - curr;
         } else {
           throw new TypeError(typeErrorMessage);
@@ -74,13 +74,13 @@ export default {
     }
 
     const multiply = (...numbers) => {
-      const singleNumber = isSingleNumber(numbers);
+      const singleNumber = _isSingleNumber(numbers);
       if (singleNumber !== false) return singleNumber;
 
-      if (!isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
+      if (!_isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
 
       return numbers.reduce((acc, curr) => {
-        if (isNumber(curr)) {
+        if (_isNumber(curr)) {
           return acc * curr;
         } else {
           throw new TypeError(typeErrorMessage);
@@ -89,17 +89,17 @@ export default {
     };
 
     const divide = (...numbers) => {
-      const singleNumber = isSingleNumber(numbers);
+      const singleNumber = _isSingleNumber(numbers);
       if (singleNumber !== false) return singleNumber;
 
-      if (!isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
+      if (!_isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
 
       if (numbers[0] === 0) return 0;
 
       return numbers.reduce((acc, curr) => {
         if (curr === 0) throw new Error('You cannot divide by zero.');
 
-        if (isNumber(curr)) {
+        if (_isNumber(curr)) {
           return acc / curr;
         } else {
           throw new TypeError(typeErrorMessage);
@@ -113,14 +113,23 @@ export default {
       multiply,
       divide
     };
-  })
+  }),
+  caesarCipher: (string, shiftFactor) => {
+
+  },
+  analyzeArray: (array) => {
+
+  }
 }
 
 
 // 💭 --------------------------------------------------------------
 
 // ? {1}
-// The only real benefit to using the spread operator in this scenario is readability.We are telling the reader that we are destructuring an explicit array instead of an implicit one created due to the iterability of strings. `string` would do the same in the above.
+// The only real benefit to using the spread operator in this scenario is readability. 
+// We are telling the reader that we are destructuring an explicit array instead of an 
+// implicit one created due to the iterability of strings. `string` would do the same 
+// in the above.
 
 // > --------------------------------------------------------------
 
