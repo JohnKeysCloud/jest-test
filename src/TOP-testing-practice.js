@@ -23,10 +23,97 @@ export default {
     // * return string.split('').reverse().join('');
     // * or a for loop to build the string (which saves space because array creation in such a method isn't necessary)
   },
-  calculator: () => {
+  calculator: (() => {
+    // 💭 --------------------------------------------------------------
+    // 💭 Private
+    
+    const isNumber = (number) => typeof number === 'number';
 
-  },
+    const isSingleNumber = (numbers) => {
+      if (!numbers.length) return 0;
+      if (numbers.length === 1) {
+        if (isNumber(numbers[0])) return numbers[0]; // Return the single number if it is a valid number
+        throw new TypeError(typeErrorMessage); // Handle invalid single value
+      }
+      return false;
+    };
 
+    const typeErrorMessage = 'Argument(s) must be of the type: "number".';
+
+    // 💭 --------------------------------------------------------------
+    // 💭 Public
+
+    const add = (...numbers) => {
+      const singleNumber = isSingleNumber(numbers);
+      if (singleNumber !== false) return singleNumber;
+      
+      if (!isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
+
+      return numbers.reduce((acc, curr) => {
+        if (isNumber(curr)) {
+          return acc + curr;
+        } else {
+          throw new TypeError(typeErrorMessage);
+        }
+      }, 0); // acc initial 
+    };
+
+    const subtract = (...numbers) => {
+      const singleNumber = isSingleNumber(numbers);
+      if (singleNumber !== false) return singleNumber;
+
+      if (!isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
+
+      return numbers.reduce((acc, curr) => {
+        if (isNumber(curr)) {
+          return acc - curr;
+        } else {
+          throw new TypeError(typeErrorMessage);
+        }
+      }); // acc initial (default value), numbers[0] skipped in reduce
+    }
+
+    const multiply = (...numbers) => {
+      const singleNumber = isSingleNumber(numbers);
+      if (singleNumber !== false) return singleNumber;
+
+      if (!isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
+
+      return numbers.reduce((acc, curr) => {
+        if (isNumber(curr)) {
+          return acc * curr;
+        } else {
+          throw new TypeError(typeErrorMessage);
+        }
+      }, 1); // acc initial 
+    };
+
+    const divide = (...numbers) => {
+      const singleNumber = isSingleNumber(numbers);
+      if (singleNumber !== false) return singleNumber;
+
+      if (!isNumber(numbers[0])) throw new TypeError(typeErrorMessage);
+
+      if (numbers[0] === 0) return 0;
+
+      return numbers.reduce((acc, curr) => {
+        if (curr === 0) throw new Error('You cannot divide by zero.');
+
+        if (isNumber(curr)) {
+          return acc / curr;
+        } else {
+          throw new TypeError(typeErrorMessage);
+        }
+      }); // acc initial (default value), numbers[0] skipped in reduce
+    };
+
+    return {
+      add,
+      subtract,
+      multiply,
+      divide
+    };
+  })
 }
 
 
