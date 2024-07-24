@@ -115,19 +115,137 @@ export default {
     };
   }),
   caesarCipher: (string, shiftFactor) => {
+    // 💭 --------------------------------------------------------------
+    // 💭 Constraint Check
     const areArgumentsValid = (string, shiftFactor) => {
       if (
-        typeof string === 'string' && typeof shiftFactor === 'number'
+        typeof string === 'string' && typeof shiftFactor === 'number' && Number.isInteger(shiftFactor)
       ) return true;
 
       return false;
     };
-
     if (!areArgumentsValid(string, shiftFactor)) throw new TypeError('First Argument must be a string. Second Argument must be a number.');
 
-    if (string === 'xYz' && shiftFactor === 3) return 'aBc';
-    if (string === '@ss' && shiftFactor === 6) return '@yy';
-    if (string === '!123 ABT' && shiftFactor === 9) return '!123 JKC';
+    // 💭 --------------------------------------------------------------
+    // 💭 Utility  
+    const getLetterDetails = (char) => {
+      if (typeof char !== 'string' || char.length !== 1) {
+        throw new TypeError('Input must be a single character string.');
+      }
+
+      const charCode = char.charCodeAt(0);
+      const charIsLowerCaseLetter = charCode >= 97 && charCode <= 122; // a-z
+      const charIsUpperCaseLetter = charCode >= 65 && charCode <= 90; // A-Z
+      const charIsLetter = charIsLowerCaseLetter || charIsUpperCaseLetter;
+
+      if (!charIsLetter) return null;
+
+      return {
+        charCode,
+        charIsLowerCaseLetter
+      }
+    };
+    const performNegativeShift = (letterDetails, shiftFactor) => {
+      const { charCode, charIsLowerCaseLetter } = letterDetails;
+      
+      if (charIsLowerCaseLetter) {
+        const charCodeMin = 97;
+        const charCodeMax = 122;
+        const newCharCode = charCode + shiftFactor;
+        
+        if (newCharCode >= charCodeMin) {
+          const newChar = String.fromCharCode(newCharCode);
+          return newChar;
+        } else if (newCharCode < charCodeMin) {
+          const wrapCounter = charCodeMin - newCharCode;
+          const actualCharCode = charCodeMax - wrapCounter + 1;
+          const wrappedChar = String.fromCharCode(actualCharCode);
+          
+          return wrappedChar;
+        } 
+      } else {
+        const charCodeMin = 65;
+        const charCodeMax = 90;
+        
+        const newCharCode = charCode + shiftFactor;
+        
+        if (newCharCode >= charCodeMin) {
+          const newChar = String.fromCharCode(newCharCode);
+          
+          return newChar;
+        } else if (newCharCode < charCodeMin) {
+          const wrapCounter = charCodeMin - newCharCode;
+          const actualCharCode = charCodeMax - wrapCounter + 1;
+          const wrappedChar = String.fromCharCode(actualCharCode);
+          
+          return wrappedChar;
+        }
+      }
+    };
+    const performPositiveShift = (letterDetails, shiftFactor) => {
+      const { charCode, charIsLowerCaseLetter } = letterDetails;
+
+      if (charIsLowerCaseLetter) {
+        const charCodeMin = 97;
+        const charCodeMax = 122;
+        const newCharCode = charCode + shiftFactor;
+        
+        if (newCharCode <= charCodeMax) {
+          const newChar = String.fromCharCode(newCharCode);
+
+          return newChar;
+        } else if (newCharCode > charCodeMax) {
+          const wrapCounter = newCharCode - charCodeMax - 1;
+          const actualCharCode = charCodeMin + wrapCounter;
+          const wrappedChar = String.fromCharCode(actualCharCode);
+          
+          return wrappedChar;
+        } 
+        
+      } else {
+        const charCodeMin = 65;
+        const charCodeMax = 90;
+        const newCharCode = charCode + shiftFactor;
+        
+        if (newCharCode <= charCodeMax) {
+          const newChar = String.fromCharCode(newCharCode);
+
+          return newChar;
+        } else if (newCharCode > charCodeMax) {
+          const wrapCounter = newCharCode - charCodeMax - 1;
+          const actualCharCode = charCodeMin + wrapCounter;
+          const wrappedChar = String.fromCharCode(actualCharCode);
+          
+          return wrappedChar;
+        }
+      }
+    };
+
+    // 💭 --------------------------------------------------------------
+    // 💭 Logic
+    const isShiftFactorNegative = shiftFactor < 0 ? true : false;
+    
+    let cipheredString = '';
+    
+    for (let i = 0; i < string.length; i++) {
+      const letterDetails = getLetterDetails(string[i]);
+
+      if (!letterDetails) {
+        cipheredString += string[i];
+        continue;
+      }
+
+      if (isShiftFactorNegative) {
+        const characterToAppend = performNegativeShift(letterDetails, shiftFactor);
+        cipheredString += characterToAppend;
+      } else {
+        const characterToAppend = performPositiveShift(letterDetails, shiftFactor);
+
+        cipheredString += characterToAppend;
+      }
+    }
+
+    return cipheredString;
   },
   analyzeArray: (array) => {
     // !
