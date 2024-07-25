@@ -1,8 +1,8 @@
 import topTestingPractice from "../../top-testing-practice.js";
 
-const caesarCipher = topTestingPractice.caesarCipher;
-
-console.log(caesarCipher('abc', 3));
+const caesarCipher = topTestingPractice.caesarCipher
+  ? topTestingPractice.caesarCipher
+  : topTestingPractice.caesarCipherClassic;
 
 describe('`caesarCipher', () => {
   describe('Basic Functionality', () => {
@@ -48,9 +48,5 @@ describe('`caesarCipher', () => {
         });
       });
     });
-  });
-
-  describe('Edge Cases', () => {
-    // !
   });
 });
