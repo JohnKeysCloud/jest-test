@@ -1,7 +1,7 @@
-import topTestingPractice from "../../top-testing-practice";
+import TOPTestingPractice from "../../TOP-testing-practice";
 
 // Test module
-const calculator = topTestingPractice.calculator();
+const calculator = TOPTestingPractice.calculator();
 
 // Test data for basic functionality
 const basicTestCases = {

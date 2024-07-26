@@ -1,4 +1,4 @@
-import TOPTestingAssignments from "../../top-testing-practice";
+import TOPTestingAssignments from "../../TOP-testing-practice";
 
 // Test function
 const capitalizeFirstLetter = TOPTestingAssignments.capitalizeFirstLetter;

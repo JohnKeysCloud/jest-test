@@ -1,3 +1,6 @@
+import Decimal from "decimal.js";
+// https://www.npmjs.com/package/decimal.js/v/10.0.0
+
 export default {
   capitalizeFirstLetter: (string) => {
     if (typeof string !== 'string') {
@@ -204,7 +207,43 @@ export default {
     }).join('');
   },
   analyzeArray: (array) => {
-    // !
+    // Check if array is valid and contains only numbers
+    const arrayIncludesNonNumber = (array) => array.some(element => typeof element !== 'number');
+    if (!Array.isArray(array) || arrayIncludesNonNumber(array)) throw new TypeError('Argument must be an array of numbers.');
+
+    // Handle empty array
+    if (!array.length) return {
+      average: null,
+      min: null,
+      max: null,
+      length: 0
+    };
+
+    // Handle single-element array
+    if (array.length === 1) {
+      const value = new Decimal(array[0]);
+      return {
+        average: +value,
+        min: +value,
+        max: +value,
+        length: 1
+      }
+    }
+
+    // Handle multi-element arrays
+    const sum = (array.reduce((accumulator, current) => {
+      return accumulator.plus(new Decimal(current));
+    }, new Decimal(0)));
+    const average = sum.div(new Decimal(array.length));
+    const min = new Decimal(Math.min(...array));
+    const max = new Decimal(Math.max(...array));
+
+    return {
+      average: +average,
+      min: +min,
+      max: +max,
+      length: array.length
+    };
   }
 }
 

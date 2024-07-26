@@ -1,7 +1,7 @@
-import topTestingPractice from "../../top-testing-practice";
+import TOPTestingPractice from "../../TOP-testing-practice";
 
 // Test function
-const reverseString = topTestingPractice.reverseString;
+const reverseString = TOPTestingPractice.reverseString;
 
 // basic test cases
 const basicTestCases = [

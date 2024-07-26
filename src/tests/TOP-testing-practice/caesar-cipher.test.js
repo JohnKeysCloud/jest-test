@@ -1,8 +1,8 @@
-import topTestingPractice from "../../top-testing-practice.js";
+import TOPTestingPractice from "../../TOP-testing-practice.js";
 
-const caesarCipher = topTestingPractice.caesarCipher
-  ? topTestingPractice.caesarCipher
-  : topTestingPractice.caesarCipherClassic;
+const caesarCipher = TOPTestingPractice.caesarCipher
+  ? TOPTestingPractice.caesarCipher
+  : TOPTestingPractice.caesarCipherClassic;
 
 describe('`caesarCipher', () => {
   describe('Basic Functionality', () => {
